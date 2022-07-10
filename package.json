@@ -2,7 +2,7 @@
 	"name": "game-of-life",
 	"description": "Game of Life developed in HTML",
 	"version": "1.0.0",
-	"author": "Thiago Nascimento",
+	"author": "Thiago Ferreira",
 	"license": "Apache License, Version 2.0",
 	"main": "server.js",
 	"dependencies": {
