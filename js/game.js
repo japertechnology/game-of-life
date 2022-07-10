@@ -50,7 +50,7 @@ var Game = function(){
 		}
 		
 		return count;
-	}
+	};
 	
 	this.step = function(){
 		var nextState = new Array();

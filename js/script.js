@@ -81,11 +81,11 @@ $(function() {
 	}
 	
 	function enableAllButtons(){
-		$(".action-button").removeAttr('disabled');		
+		$(".action-button").removeAttr("disabled");		
 	}
 
 	function disableAllButtons(){
-		$(".action-button").attr('disabled','disabled');		
+		$(".action-button").attr("disabled","disabled");		
 	}
 	
 	function getClickPosition(){
@@ -100,7 +100,7 @@ $(function() {
 		return {
 			line: Math.floor(mouseY/width),
 			column: Math.floor(mouseX/width)
-		}
+		};
 	}
 	
 	function toggleCell(line,column){
@@ -136,7 +136,7 @@ $(function() {
 		isPressedKey = false;
 	}).click(function(e) {
         if(e.target.id=="close-speed-popover" ){
-			$('#speed-popover').popover('hide');		
+			$("#speed-popover").popover("hide");		
         }
 	});
 		
@@ -171,7 +171,7 @@ $(function() {
 	}).mouseup(function(event) {
 		event.preventDefault();		
 		isPressedButton = false;
-	}).bind('mousewheel', function(e){
+	}).bind("mousewheel", function(e){
 		if(e.originalEvent.wheelDelta < 0) {
 			zoomOut();
 		}else {
@@ -179,10 +179,10 @@ $(function() {
 		}		
 	    //prevent page fom scrolling
 	    return false;
-	}).css('cursor','pointer');
+	}).css("cursor","pointer");
 	
 	$("#about").click(function(event) {
-		$('#myModal').modal('show');
+		$("#myModal").modal("show");
 	});
 
 	$("#startAndStop").click(function(event) {
@@ -229,12 +229,12 @@ $(function() {
 		draw();
 	});
 	
-	$('#slider-speed').slider({
+	$("#slider-speed").slider({
 		min: 1,
 		max: 100,
 		step: 1,
 		value: animationSpeed
-	}).on('slide', function (ev) {
+	}).on("slide", function (ev) {
 		animationSpeed = ev.value;		
     });
 	
