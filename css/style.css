@@ -25,6 +25,16 @@ canvas {
 }
 
 
+.btn-outline-secondary{
+    border-color: #5584AC !important;
+    color: #5584AC !important;
+}
+
+.btn-outline-secondary:hover{
+    background-color: #5584AC !important;
+    color: white !important;
+}
+
 #modal-examples .scrollable {
     position: relative;
     height: 200px;
