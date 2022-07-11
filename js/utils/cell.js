@@ -24,6 +24,6 @@ class Cell {
     }
 
     toString() {
-        return `${this.i};${this.j}`;
+        return `${this.i},${this.j}`;
     }
 }

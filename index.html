@@ -37,7 +37,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link" href="#" data-bs-toggle="dropdown">File</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modal-file-import-csv"><i class="bi bi-upload"></i><span>Import .CSV</span></a></li>
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modal-import-csv"><i class="bi bi-upload"></i><span>Import .CSV</span></a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
@@ -137,6 +137,29 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-import-csv" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form id="form-import-csv" action="#">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><i class="bi bi-upload me-2"></i>Import .CSV</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="csv-file" class="form-label">File</label>
+                            <input class="form-control" type="file" id="csv-file" required>
+                            <small class="form-text">Use a comma to separate values.</small>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Import</button>
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

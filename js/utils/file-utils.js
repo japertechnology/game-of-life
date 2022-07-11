@@ -1,6 +1,6 @@
 class FileUtils {
 
-    static parseContent(content, hasHeader) {
+    static parseContent(content, hasHeader=false) {
 
         var data = [];
 
@@ -16,11 +16,11 @@ class FileUtils {
                 return;
             }
 
-            let array = rows.split(",").map(e => parseFloat(e));
+            let array = rows.split(",").map(e => e.trim()).map(e => parseInt(e));
 
             data.push({
-                x: array[0],
-                y: array[1],
+                i: array[0],
+                j: array[1],
             });
         });
 
@@ -51,11 +51,7 @@ class FileUtils {
             content += cell.toString() + "\n";
         }
 
-        var file = new File([content], fileName, {type: "text/plain;charset=utf-8"});
-
-        console.log(file);
-
-        // var blob = new Blob([content], { type: "text/csv;charset=utf-8" });
+        var file = new File([content], fileName, { type: "text/csv;charset=utf-8" });
 
         saveAs(file);
     }

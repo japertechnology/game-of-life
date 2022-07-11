@@ -1,73 +1,88 @@
 var game = new Game();
 
+var mouseX = 0;
+var mouseY = 0;
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+var animationSpeed = 90;
+var intervalID = 0;
+
+var maxWidth = 80;
+var minWidth = 6;
+var width = 20;
+
+var isPressedButton = false;
+var isPressedKey = false;
+var isRunning = false;
+var isShowGrid = true;
+
 const $modalSettings = $("#modal-examples");
 
+function drawCell(x, y, color) {
+    ctx.beginPath();
+    ctx.fillStyle = color;
+    ctx.rect(x + 1, y + 1, width - 2, width - 2);
+    ctx.fill();
+}
+
+function drawLine(x0, y0, x1, y1, lineWidth, color) {
+    ctx.beginPath();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = lineWidth;
+    ctx.moveTo(x0, y0);
+    ctx.lineTo(x1, y1);
+    ctx.stroke();
+}
+
+function drawGrid() {
+    for (var i = 0; i < game.maxColumns; i++) {
+        drawLine(width + i * width, 0, width + i * width, game.maxLines * width, 1, "black");
+    }
+
+    for (var i = 0; i < game.maxLines; i++) {
+        drawLine(0, width + i * width, game.maxColumns * width, width + i * width, 1, "black");
+    }
+}
+
+function drawCells() {
+
+    for (const cell of game.cells.values()) {
+
+        drawCell(cell.j * width, cell.i * width, "black");
+    };
+}
+
+function draw() {
+    //Clear the screen before draw
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    if (isShowGrid) {
+        drawGrid();
+    }
+
+    drawCells();
+}
+
+function step() {
+    game.step();
+    draw();
+}
+
+function loadPositions(positions) {
+
+    game = new Game();
+
+    for (const pos of positions) {
+
+        game.toggleCell(pos.i, pos.j);
+    }
+
+    draw();
+}
+
 $(function () {
-    var mouseX = 0;
-    var mouseY = 0;
-    var canvas = document.getElementById("canvas");
-    var ctx = canvas.getContext("2d");
-    var animationSpeed = 90;
-    var intervalID = 0;
 
-    var maxWidth = 80;
-    var minWidth = 6;
-    var width = 20;
 
-    var isPressedButton = false;
-    var isPressedKey = false;
-    var isRunning = false;
-    var isShowGrid = true;
-
-    function drawCell(x, y, color) {
-        ctx.beginPath();
-        ctx.fillStyle = color;
-        ctx.rect(x + 1, y + 1, width - 2, width - 2);
-        ctx.fill();
-    }
-
-    function drawLine(x0, y0, x1, y1, lineWidth, color) {
-        ctx.beginPath();
-        ctx.strokeStyle = color;
-        ctx.lineWidth = lineWidth;
-        ctx.moveTo(x0, y0);
-        ctx.lineTo(x1, y1);
-        ctx.stroke();
-    }
-
-    function drawGrid() {
-        for (var i = 0; i < game.maxColumns; i++) {
-            drawLine(width + i * width, 0, width + i * width, game.maxLines * width, 1, "black");
-        }
-
-        for (var i = 0; i < game.maxLines; i++) {
-            drawLine(0, width + i * width, game.maxColumns * width, width + i * width, 1, "black");
-        }
-    }
-
-    function drawCells() {
-
-        for (const cell of game.cells.values()) {
-
-            drawCell(cell.j * width, cell.i * width, "black");
-        };
-    }
-
-    function draw() {
-        //Clear the screen before draw
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        if (isShowGrid) {
-            drawGrid();
-        }
-
-        drawCells();
-    }
-
-    function step() {
-        game.step();
-        draw();
-    }
 
     function enableAllButtons() {
         $(".toolbar .btn").removeClass("disabled").removeAttr("disabled");
@@ -152,8 +167,6 @@ $(function () {
             game.born(pos.line, pos.column);
         }
 
-
-
     }).mousedown(function (event) {
         event.preventDefault();
         isPressedButton = true;
@@ -236,7 +249,22 @@ $(function () {
         animationSpeed = $(this).val();
     });
 
-    $("#menubar-file-export").click(function(event){
+    $("#form-import-csv").submit(event => {
+
+        let csvFile = $(this).find("#csv-file").prop("files")[0];
+
+        FileUtils.readCSV(csvFile, false, (positions) => {
+
+            loadPositions(positions);
+
+            $("#modal-import-csv").modal("hide");
+        });
+
+        return false;
+    });
+
+    $("#menubar-file-export").click(function (event) {
+
         event.preventDefault();
 
         FileUtils.exportToCSV(game.cells, "positions.csv");
@@ -244,7 +272,9 @@ $(function () {
         return false;
     });
 
-    $("#modal-examples a").click(function(event){
+    $("#modal-examples a").click(function (event) {
+
+        event.preventDefault();
 
         const file = $(this).data("file");
 
@@ -252,22 +282,9 @@ $(function () {
 
             $.get(file).then(function (data) {
 
-                game = new Game();
+                let positions = FileUtils.parseContent(data);
 
-                const lines = data.split("\n").map(e => e.trim());
-
-                for (const line of lines) {
-
-                    if (!line) {
-                        continue;
-                    }
-
-                    const parts = line.split(",").map(e => e.trim()).map(e => parseInt(e));
-
-                    game.toggleCell(parts[0], parts[1]);
-                }
-
-                draw();
+                loadPositions(positions);
             });
         }
     });
