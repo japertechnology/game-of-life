@@ -111,6 +111,47 @@ $(function() {
 		}
 	}
 
+    function resizeCanvas() {
+
+        console.debug("Resizing canvas");
+
+		canvas.width = $("#panel").width();
+		canvas.height = $(window).height() - $(".navbar").height() - $(".toolbar").height()-60;
+
+		draw();
+	}
+
+  	function resetAll(){
+		game.init();
+	}
+
+	function zoomIn(){
+		//scroll up
+		if(width <= maxWidth){
+			width += 2;
+		}
+		draw();
+	}
+
+	function zoomOut(){
+		//scroll down
+		if(width >= minWidth){
+			width -= 2;
+		}
+		draw();
+	}
+
+	function start(){
+
+		clearInterval(intervalID);
+
+		game.step();
+
+		if(isRunning){
+			intervalID = setInterval(start, (100-animationSpeed)*10);
+		}
+	}
+
 	$( window ).resize(function() {
 		resizeCanvas();
 	});
@@ -132,10 +173,6 @@ $(function() {
 		}
 	}).keyup(function(event) {
 		isPressedKey = false;
-	}).click(function(e) {
-        if(e.target.id=="close-speed-popover" ){
-			$("#speed-popover").popover("hide");
-        }
 	});
 
 	$( "canvas" ).mousemove(function( event ) {
@@ -178,10 +215,6 @@ $(function() {
 	    //prevent page fom scrolling
 	    return false;
 	}).css("cursor","pointer");
-
-	$("#about").click(function(event) {
-		$("#myModal").modal("show");
-	});
 
 	$("#startAndStop").click(function(event) {
 
@@ -246,46 +279,7 @@ $(function() {
         }
     });
 
-	function resizeCanvas() {
 
-        console.debug("Resizing canvas");
-
-		canvas.width = $("#panel").width();
-		canvas.height = $(window).height() - $(".navbar").height() - $(".toolbar").height()-60;
-
-		draw();
-	}
-
-  	function resetAll(){
-		game.init();
-	}
-
-	function zoomIn(){
-		//scroll up
-		if(width <= maxWidth){
-			width += 2;
-		}
-		draw();
-	}
-
-	function zoomOut(){
-		//scroll down
-		if(width >= minWidth){
-			width -= 2;
-		}
-		draw();
-	}
-
-	function start(){
-
-		clearInterval(intervalID);
-
-		game.step();
-
-		if(isRunning){
-			intervalID = setInterval(start, (100-animationSpeed)*10);
-		}
-	}
 
 	resizeCanvas();
 });
