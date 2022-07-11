@@ -1,5 +1,7 @@
 var game = new Game();
 
+const $modalSettings = $("#modal-examples");
+
 $(function () {
     var mouseX = 0;
     var mouseY = 0;
@@ -16,14 +18,6 @@ $(function () {
     var isPressedKey = false;
     var isRunning = false;
     var isShowGrid = true;
-
-    game.onChange = function (line, column, state) {
-        if (state == "alive") {
-            drawCell(line, column, "black");
-        } else if (state == "dead") {
-            drawCell(line, column, "white");
-        }
-    };
 
     function drawCell(x, y, color) {
         ctx.beginPath();
@@ -211,6 +205,8 @@ $(function () {
         }
     });
 
+
+
     $("#zoom-in").click(function (event) {
         zoomIn();
     });
@@ -240,7 +236,7 @@ $(function () {
         animationSpeed = $(this).val();
     });
 
-    $(".navbar-nav li a").on("click", function () {
+    $("#modal-examples a").click(function(event){
 
         const file = $(this).data("file");
 
@@ -254,7 +250,7 @@ $(function () {
 
                 for (const line of lines) {
 
-                    if(!line){
+                    if (!line) {
                         continue;
                     }
 
@@ -266,6 +262,9 @@ $(function () {
                 draw();
             });
         }
+    });
+
+    $(".navbar-nav li a").on("click", function () {
 
         if (!$(this).hasClass("dropdown-toggle")) {
             $(".navbar-collapse").collapse("hide");

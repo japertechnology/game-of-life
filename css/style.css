@@ -1,3 +1,7 @@
+body {
+    font-size: .875rem;
+}
+
 canvas {
     margin-top: 20px;
     border: 1px solid black;
@@ -9,30 +13,67 @@ canvas {
     user-select: none;
 }
 
-#select-aco {
-    padding: 5px 10px;
-    height: 31px;
-}
 
 .toolbar {
     color: #777;
     background-color: #fafafa;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+
+#modal-examples .scrollable {
+    position: relative;
+    height: 200px;
+    overflow: auto;
 }
 
 /************************************
  * Navbar                           *
  ************************************/
 
-.navbar {
+.navbar-primary {
     background-color: #5584AC !important;
     color: #ffffff;
     border-radius: 0;
 }
 
-.navbar .navbar-brand {
+.navbar-primary .navbar-brand {
     color: #ffffff;
 }
 
-.navbar .navbar-nav>li>a {
+.navbar-primary .navbar-nav>li>a {
     color: #ffffff !important;
+}
+
+/************************************
+ * Menubar                          *
+ ************************************/
+
+.menubar {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.menubar .nav-item .nav-link {
+    color: #495057;
+}
+
+.menubar .dropdown-item-checkbox span {
+    padding-left: 4px !important;
+}
+
+.menubar .dropdown-menu li {
+    font-size: 14px;
+}
+
+.menubar .dropdown-menu .dropdown-item span {
+    padding-left: 10px;
+}
+
+.menubar .dropdown-menu .dropdown-item-checkbox:hover {
+    cursor: pointer;
+}
+
+.menubar .bi-blank {
+    visibility: hidden !important;
+    margin-left: 15px;
 }

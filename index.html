@@ -18,62 +18,72 @@
     <link rel="icon" type="image/png" href="img/favicon.ico">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css"  crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css" crossorigin="anonymous">
 
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <nav class="navbar navbar-expand-sm navbar-primary">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Game of Life</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-content">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbar-content">
-                <ul class="navbar-nav me-auto mb-0">
+        </div>
+    </nav>
+
+    <nav class="navbar navbar-expand navbar-light bg-light menubar py-0 my-0">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav me-auto">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-                            Examples
-                        </a>
+                        <a class="nav-link" href="#" data-bs-toggle="dropdown">File</a>
                         <ul class="dropdown-menu">
-
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modal-file-import-csv"><i class="bi bi-upload"></i><span>Import .CSV</span></a></li>
                             <li>
-                                <h6 class="dropdown-header">Still lifes Group</h6>
+                                <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="#" data-file="data/examples/still-lifes/block.csv">Block</a></li>
-                            <li><a class="dropdown-item" href="#" data-file="data/examples/still-lifes/beehive.csv">Beehive</a></li>
-                            <li><a class="dropdown-item" href="#" data-file="data/examples/still-lifes/loaf.csv">Loaf</a></li>
-                            <li><a class="dropdown-item" href="#" data-file="data/examples/still-lifes/boat.csv">Boat</a></li>
-
-                            <li>
-                                <h6 class="dropdown-header">Oscillators Group</h6>
-                            </li>
-                            <li><a class="dropdown-item" href="#" data-file="data/examples/oscillators/blinker.csv">Blinker</a></li>
-                            <li><a class="dropdown-item" href="#" data-file="data/examples/oscillators/toad.csv">Toad</a></li>
-                            <li><a class="dropdown-item" href="#" data-file="data/examples/oscillators/beacon.csv">Beacon</a></li>
-                            <li><a class="dropdown-item" href="#" data-file="data/examples/oscillators/pulsar.csv">Pulsar</a></li>
-
-                            <li>
-                                <h6 class="dropdown-header">Spaceships Group</h6>
-                            </li>
-                            <li><a class="dropdown-item" href="#" data-file="data/examples/spaceships/glider.csv">Glider</a></li>
-                            <li><a class="dropdown-item" href="#" data-file="data/examples/spaceships/lightweight.csv">Lightweight spaceship</a></li>
-                            <li><a class="dropdown-item" href="#" data-file="data/examples/spaceships/the-r-pentomino.csv">The R-pentomino</a></li>
-                            <li><a class="dropdown-item" href="#" data-file="data/examples/spaceships/diehard.csv">Diehard</a></li>
-                            <li><a class="dropdown-item" href="#" data-file="data/examples/spaceships/gosper-glider-gun.csv">Gosper Glider Gun</a></li>
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modal-file-export"><i class="bi bi-blank"></i><span>Export</span></a></li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" id="about">About</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#" data-bs-toggle="dropdown">Edit</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" id="menubar-clear-all" href="#"><i class="bi bi-blank"></i><span>Clear All</span></a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal-settings" href="#"><i class="bi bi-gear"></i><span>Settings</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#" data-bs-toggle="dropdown">View</a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <label class="dropdown-item dropdown-item-checkbox" for="menubar-view-grid">
+                                    <input class="form-check-input" type="checkbox" value="" id="menubar-view-grid" />
+                                    <span>Grid</span>
+                                </label>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#" data-bs-toggle="dropdown">Insert</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal-examples" href="#"><i class="bi bi-blank"></i><span>Examples</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#" data-bs-toggle="dropdown">Help</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" target="_blank" href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life"><i class="bi bi-blank"></i><span>About Game of Life</span></a></li>
+                        </ul>
                     </li>
                 </ul>
             </div>
-            <!--/.nav-collapse -->
         </div>
     </nav>
+
     <div class="toolbar">
-        <div class="container-fluid pt-2 pb-2 border-bottom">
+        <div class="container-fluid pt-2 pb-2">
             <div class="btn-group d-flex d-sm-inline-flex">
                 <a href="#" class="btn btn-outline-secondary btn-sm" id="startAndStop">
                     <i class="bi bi-play"></i><span class="d-none d-sm-inline ms-1">Play</span>
@@ -120,9 +130,62 @@
                         </div>
                         <div class="mb-3">
                             <label for="slider-speed" class="form-label">Speed</label>
-                            <input type="range" id="slider-speed" class="form-range" min="50" max="100" step="1" value="90"/>
+                            <input type="range" id="slider-speed" class="form-range" min="50" max="100" step="1" value="90" />
                         </div>
                     </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Examples Modal -->
+    <div class="modal fade" id="modal-examples" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Examples</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex align-items-start">
+                        <div class="nav flex-column nav-pills" role="tablist">
+                            <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-still-lifes" type="button" role="tab">Still Lifes</button>
+                            <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-oscillators" type="button" role="tab">Oscillators</button>
+                            <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-spaceships" type="button" role="tab">Spaceships</button>
+                        </div>
+                        <div class="tab-content w-100 scrollable" id="v-pills-tabContent">
+                            <div class="tab-pane fade show active" id="v-pills-still-lifes" tabindex="0">
+                                <div class="list-group list-group-flush">
+                                    <a class="list-group-item list-group-item-action" href="#" data-file="data/examples/still-lifes/block.csv">Block</a>
+                                    <a class="list-group-item list-group-item-action" href="#" data-file="data/examples/still-lifes/beehive.csv">Beehive</a>
+                                    <a class="list-group-item list-group-item-action" href="#" data-file="data/examples/still-lifes/loaf.csv">Loaf</a>
+                                    <a class="list-group-item list-group-item-action" href="#" data-file="data/examples/still-lifes/boat.csv">Boat</a>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="v-pills-oscillators" tabindex="0">
+                                <div class="list-group list-group-flush">
+                                    <a class="list-group-item list-group-item-action" href="#" data-file="data/examples/oscillators/blinker.csv">Blinker</a>
+                                    <a class="list-group-item list-group-item-action" href="#" data-file="data/examples/oscillators/toad.csv">Toad</a>
+                                    <a class="list-group-item list-group-item-action" href="#" data-file="data/examples/oscillators/beacon.csv">Beacon</a>
+                                    <a class="list-group-item list-group-item-action" href="#" data-file="data/examples/oscillators/pulsar.csv">Pulsar</a>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="v-pills-spaceships" tabindex="0">
+                                <div class="list-group list-group-flush">
+
+                                    <a class="list-group-item list-group-item-action" href="#" data-file="data/examples/spaceships/glider.csv">Glider</a>
+                                    <a class="list-group-item list-group-item-action" href="#" data-file="data/examples/spaceships/lightweight.csv">Lightweight spaceship</a>
+                                    <a class="list-group-item list-group-item-action" href="#" data-file="data/examples/spaceships/the-r-pentomino.csv">The R-pentomino</a>
+                                    <a class="list-group-item list-group-item-action" href="#" data-file="data/examples/spaceships/diehard.csv">Diehard</a>
+                                    <a class="list-group-item list-group-item-action" href="#" data-file="data/examples/spaceships/gosper-glider-gun.csv">Gosper Glider Gun</a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
