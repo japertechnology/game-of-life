@@ -16,7 +16,6 @@ $(function () {
     var isPressedKey = false;
     var isRunning = false;
     var isShowGrid = true;
-    var isShowingSettingsPanel = false;
 
     game.onChange = function (line, column, state) {
         if (state == "alive") {
@@ -26,14 +25,10 @@ $(function () {
         }
     };
 
-    game.onInit = function () {
-        draw();
-    };
-
-    function drawCell(line, column, color) {
+    function drawCell(x, y, color) {
         ctx.beginPath();
         ctx.fillStyle = color;
-        ctx.rect(column * width, line * width, width - 1, width - 1);
+        ctx.rect(x + 1, y + 1, width - 2, width - 2);
         ctx.fill();
     }
 
@@ -57,16 +52,11 @@ $(function () {
     }
 
     function drawCells() {
-        for (var i = 0; i < game.maxLines; i++) {
-            for (var j = 0; j < game.maxColumns; j++) {
-                if (game.cells[i][j] == 1) {
-                    drawCell(i, j, "black");
-                }
-                if (game.cells[i][j] == 0) {
-                    drawCell(i, j, "white");
-                }
-            }
-        }
+
+        for (const cell of game.cells.values()) {
+
+            drawCell(cell.j * width, cell.i * width, "black");
+        };
     }
 
     function draw() {
@@ -78,6 +68,11 @@ $(function () {
         }
 
         drawCells();
+    }
+
+    function step() {
+        game.step();
+        draw();
     }
 
     function enableAllButtons() {
@@ -103,14 +98,6 @@ $(function () {
         };
     }
 
-    function toggleCell(line, column) {
-        if (game.isAlive(line, column)) {
-            game.kill(line, column);
-        } else {
-            game.born(line, column);
-        }
-    }
-
     function resizeCanvas() {
 
         console.debug("Resizing canvas");
@@ -119,10 +106,6 @@ $(function () {
         canvas.height = $(window).height() - $(".navbar").height() - $(".toolbar").height() - 60;
 
         draw();
-    }
-
-    function resetAll() {
-        game.init();
     }
 
     function zoomIn() {
@@ -145,7 +128,7 @@ $(function () {
 
         clearInterval(intervalID);
 
-        game.step();
+        step();
 
         if (isRunning) {
             intervalID = setInterval(start, (100 - animationSpeed) * 10);
@@ -156,26 +139,10 @@ $(function () {
         resizeCanvas();
     });
 
-    //Remove context menu when user click with right button
-    $(document).keydown(function (event) {
-        //Pressing the CRTL KEY
-        if (event.keyCode == 17) {
-            isPressedKey = true;
-        }
-        if (event.keyCode == 16) {
-            for (var i = 0; i < game.maxLines; i++) {
-                for (var j = 0; j < game.maxColumns; j++) {
-                    if (game.cells[i][j] == 1) {
-                        console.log("game.born(" + i + "," + j + ");");
-                    }
-                }
-            }
-        }
-    }).keyup(function (event) {
-        isPressedKey = false;
-    });
-
     $("canvas").mousemove(function (event) {
+
+        event.preventDefault();
+
         var rect = canvas.getBoundingClientRect();
 
         mouseX = event.clientX - rect.left;
@@ -190,8 +157,18 @@ $(function () {
 
             game.born(pos.line, pos.column);
         }
-    }).click(function (event) {
+
+
+
+    }).mousedown(function (event) {
         event.preventDefault();
+        isPressedButton = true;
+
+    }).mouseup(function (event) {
+
+        event.preventDefault();
+
+        isPressedButton = false;
 
         var pos = getClickPosition();
 
@@ -199,13 +176,10 @@ $(function () {
             return;
         }
 
-        toggleCell(pos.line, pos.column);
-    }).mousedown(function (event) {
-        event.preventDefault();
-        isPressedButton = true;
-    }).mouseup(function (event) {
-        event.preventDefault();
-        isPressedButton = false;
+        game.toggleCell(pos.line, pos.column);
+
+        draw();
+
     }).bind("mousewheel", function (e) {
         if (e.originalEvent.wheelDelta < 0) {
             zoomOut();
@@ -246,13 +220,7 @@ $(function () {
     });
 
     $("#step").click(function (event) {
-        game.step();
-    });
-
-    $("#clear-all").click(function (event) {
-        if (confirm("Are you sure?")) {
-            resetAll();
-        }
+        step();
     });
 
     $("#settings").click(function (event) {

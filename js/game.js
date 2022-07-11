@@ -1,163 +1,101 @@
-var Game = function () {
+class Game {
 
-    this.cells = {};
-    this.maxColumns = 10;
-    this.maxLines = 10;
+    constructor() {
 
-    //Callbacks
-    this.onChange = null;
-    this.onInit = null;
+        this.cells = new Map();
+        this.maxColumns = 10;
+        this.maxLines = 10;
+    }
 
-    this.init = function () {
+    born(cell) {
 
-        this.cells = {};
+        this.cells.set(cell.toString(), cell);
+    }
 
-        if (this.onInit != null) {
-            this.onInit();
-        }
-    };
+    kill(cell) {
 
-    this.born = function (line, column) {
+        this.cells.delete(cell.toString());
+    }
 
-        this.cells[line + "," + column] = 1;
+    isAlive(cell) {
 
-        if (this.onChange != null) {
-            this.onChange(line, column, "alive");
-        }
-    };
+        return this.cells.has(cell.toString());
+    }
 
-    this.kill = function (line, column) {
+    getAliveNeighbors(cell) {
 
-        delete this.cells[line + "," + column];
+        var aliveNeighbors = [];
 
-        if (this.onChange != null) {
-            this.onChange(line, column, "dead");
-        }
-    };
+        for (const neighbor of cell.getNeighbors()) {
 
-    this.isAlive = function (line, column) {
-        return this.cells[line + "," + column] == 1;
-    };
-
-    this.appendIfAlive = function (array, line, column) {
-
-        if (this.isAlive(line, column)) {
-            array.push({ line, column });
+            if (this.isAlive(neighbor)) {
+                aliveNeighbors.push(neighbor);
+            }
         }
 
-        return array;
+        return aliveNeighbors;
     };
 
-    this.getAliveNeighbors = function (line, column) {
+    toggleCell(i, j) {
 
-        var array = [];
+        console.debug("Toggling...");
 
-        array = this.appendIfAlive(array, line - 1, column - 1);
-        array = this.appendIfAlive(array, line - 1, column);
-        array = this.appendIfAlive(array, line - 1, column + 1);
+        let cell = new Cell(i, j);
 
-        array = this.appendIfAlive(array, line, column - 1);
-        array = this.appendIfAlive(array, line, column + 1);
-
-        array = this.appendIfAlive(array, line + 1, column - 1);
-        array = this.appendIfAlive(array, line + 1, column);
-        array = this.appendIfAlive(array, line + 1, column + 1);
-
-
-        return array;
-    };
-
-    // retorna quantos vizinhos vivos esta celula tem
-    this.getNumberOfAliveNeighbors = function (line, column) {
-        return this.getAliveNeighbors(line, column).length;
-    };
-
-    this.toggleCell = function(line, column) {
-
-        if (this.isAlive(line, column)) {
-            this.kill(line, column);
+        if (this.isAlive(cell)) {
+            this.kill(cell);
         } else {
-            this.born(line, column);
+            this.born(cell);
         }
     };
 
-    this.getCells = function(){
+    step() {
 
-        return Object.keys(this.cells).map(key => {
+        console.debug("Stepping...");
 
-            let parts = key.split(",");
+        let toBeAnalized = new Map();
 
-            return{
-                line:parseInt(parts[0]),
-                column: parseInt(parts[1])
-            };
-        });
-    };
+        for (const cell of game.cells.values()) {
 
-    this.step = function () {
+            toBeAnalized.set(cell.toString(), cell);
 
-        let pending = new Set();
+            for (const neighbor of cell.getNeighbors()) {
+                toBeAnalized.set(neighbor.toString(), neighbor);
+            }
+        }
 
-        Object.keys(this.cells).forEach(key => {
+        var nextStates = new Array();
 
-            let parts = key.split(",");
-            let line = parseInt(parts[0]);
-            let column = parseInt(parts[1]);
+        for (const cell of toBeAnalized.values()) {
 
-            pending.add((line - 1) + "," + (column - 1));
-            pending.add((line - 1) + "," + (column));
-            pending.add((line - 1) + "," + (column + 1));
-
-            pending.add((line) + "," + (column - 1));
-            pending.add((line) + "," + (column));
-            pending.add((line) + "," + (column + 1));
-
-            pending.add((line + 1) + "," + (column - 1));
-            pending.add((line + 1) + "," + (column));
-            pending.add((line + 1) + "," + (column + 1));
-        });
-
-        var nextState = new Array();
-
-        pending.forEach(key => {
-
-            let parts = key.split(",");
-            let i = parseInt(parts[0]);
-            let j = parseInt(parts[1]);
-
-            var nAliveNeighbors = this.getNumberOfAliveNeighbors(i, j);
+            var nAliveNeighbors = this.getAliveNeighbors(cell).length;
 
             //1 - Qualquer célula viva com menos de dois vizinhos vivos morre de solidão.
-            if (this.isAlive(i, j) && nAliveNeighbors < 2) {
-                nextState.push({ line: i, column: j, next: "dead" });
+            if (this.isAlive(cell) && nAliveNeighbors < 2) {
+                nextStates.push({ cell, next: "dead" });
             }
             //2 - Qualquer célula viva com mais de três vizinhos vivos morre de superpopulação.
-            else if (this.isAlive(i, j) && nAliveNeighbors > 3) {
-                nextState.push({ line: i, column: j, next: "dead" });
+            else if (this.isAlive(cell) && nAliveNeighbors > 3) {
+                nextStates.push({ cell, next: "dead" });
             }
             //3 - Qualquer célula com exatamente três vizinhos vivos se torna uma célula viva.
             else if (nAliveNeighbors == 3) {
-                nextState.push({ line: i, column: j, next: "alive" });
+                nextStates.push({ cell, next: "alive" });
             }
             //3 - Qualquer célula com dois vizinhos vivos continua no mesmo estado para a próxima geração.
             else if (nAliveNeighbors == 2) {
                 //Stay state
             }
-        });
+        };
 
         var that = this;
 
-        nextState.forEach(function (state) {
-            if (state.next == "dead") {
-                that.kill(state.line, state.column);
-            } else if (state.next == "alive") {
-                that.born(state.line, state.column);
-            }
-            if (that.onChange != null) {
-                that.onChange(state.line, state.column, state.next);
+        nextStates.forEach(function (state) {
+            if (state.next === "dead") {
+                that.kill(state.cell);
+            } else if (state.next === "alive") {
+                that.born(state.cell);
             }
         });
-    };
-
-    this.init();
+    }
 };
