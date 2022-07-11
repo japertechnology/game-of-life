@@ -83,6 +83,11 @@ function loadPositions(positions) {
 $(function () {
 
 
+    window.onerror = (errorMsg) => {
+        BootBoxUtils.alert(errorMsg, "<i class=\"fas fa-exclamation-triangle me-2\"></i>Ooops...");
+        return false;
+    };
+
 
     function enableAllButtons() {
         $(".toolbar .btn").removeClass("disabled").removeAttr("disabled");
@@ -266,6 +271,11 @@ $(function () {
     $("#menubar-file-export").click(function (event) {
 
         event.preventDefault();
+
+        if (game.cells.size === 0) {
+            BootBoxUtils.alert("No alive cells");
+            return;
+        }
 
         FileUtils.exportToCSV(game.cells, "positions.csv");
 
