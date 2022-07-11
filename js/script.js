@@ -242,12 +242,35 @@ $(function () {
 
     $(".navbar-nav li a").on("click", function () {
 
+        const file = $(this).data("file");
+
+        if (file) {
+
+            $.get(file).then(function (data) {
+
+                game = new Game();
+
+                const lines = data.split("\n").map(e => e.trim());
+
+                for (const line of lines) {
+
+                    if(!line){
+                        continue;
+                    }
+
+                    const parts = line.split(",").map(e => e.trim()).map(e => parseInt(e));
+
+                    game.toggleCell(parts[0], parts[1]);
+                }
+
+                draw();
+            });
+        }
+
         if (!$(this).hasClass("dropdown-toggle")) {
             $(".navbar-collapse").collapse("hide");
         }
     });
-
-
 
     resizeCanvas();
 });
