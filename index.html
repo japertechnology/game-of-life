@@ -105,7 +105,7 @@
     </div>
 
     <!-- Settings Modal -->
-    <div class="modal fade" id="modal-settings" tabindex="-1" role="dialog">
+    <div class="modal fade" id="modal-settings" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -114,17 +114,39 @@
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div class="mb-3">
-                            <label for="show-grid-select" class="form-label">Show Grid</label>
-                            <select class="form-select" id="show-grid-select">
-                                <option value="1">Yes</option>
-                                <option value="2">No</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="slider-speed" class="form-label">Speed</label>
-                            <input type="range" id="slider-speed" class="form-range" min="50" max="100" step="1" value="90" />
-                        </div>
+                        <p class="text-muted">General</p>
+
+                        <ul class="list-group mb-3">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Show Grid
+                                <div class="form-check form-switch mt-1">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="show-grid" checked>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Speed
+                                <div class="form-check form-switch mt-1">
+                                    <input type="range" id="slider-speed" class="form-range" min="50" max="100" step="1" value="90" />
+                                </div>
+                            </li>
+                        </ul>
+
+                        <p class="text-muted">Colors</p>
+
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Cell
+                                <input type="color" class="form-control form-control-color" id="cell-color">
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Grid
+                                <input type="color" class="form-control form-control-color" id="grid-color">
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Background
+                                <input type="color" class="form-control form-control-color" id="background-color" value="#ffffff">
+                            </li>
+                        </ul>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -134,7 +156,7 @@
         </div>
     </div>
 
-    <div class="modal" id="modal-import-csv" tabindex="-1">
+    <div class="modal" id="modal-import-csv" tabindex="-1" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <form id="form-import-csv" action="#">
@@ -158,7 +180,7 @@
     </div>
 
     <!-- Examples Modal -->
-    <div class="modal fade" id="modal-examples" tabindex="-1" role="dialog">
+    <div class="modal fade" id="modal-examples" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">

@@ -6,6 +6,9 @@ var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 var animationSpeed = 90;
 var intervalID = 0;
+var cellColor = "black";
+var gridColor = "black";
+
 
 var maxWidth = 80;
 var minWidth = 6;
@@ -17,6 +20,7 @@ var isRunning = false;
 var isShowGrid = true;
 
 const $modalSettings = $("#modal-examples");
+const $canvas = $("canvas");
 
 function drawCell(x, y, color) {
     ctx.beginPath();
@@ -36,11 +40,11 @@ function drawLine(x0, y0, x1, y1, lineWidth, color) {
 
 function drawGrid() {
     for (var i = 0; i < game.maxColumns; i++) {
-        drawLine(width + i * width, 0, width + i * width, game.maxLines * width, 1, "black");
+        drawLine(width + i * width, 0, width + i * width, game.maxLines * width, 1, gridColor);
     }
 
     for (var i = 0; i < game.maxLines; i++) {
-        drawLine(0, width + i * width, game.maxColumns * width, width + i * width, 1, "black");
+        drawLine(0, width + i * width, game.maxColumns * width, width + i * width, 1, gridColor);
     }
 }
 
@@ -48,7 +52,7 @@ function drawCells() {
 
     for (const cell of game.cells.values()) {
 
-        drawCell(cell.j * width, cell.i * width, "black");
+        drawCell(cell.j * width, cell.i * width, cellColor);
     };
 }
 
@@ -117,7 +121,7 @@ $(function () {
         console.debug("Resizing canvas");
 
         canvas.width = $("#panel").width();
-        canvas.height = $(window).height() - $(".navbar").height() - $(".toolbar").height() - 60;
+        canvas.height = $(window).height() - $(".navbar").height()- $(".menubar").height() - $(".toolbar").height() - 60;
 
         draw();
     }
@@ -153,7 +157,7 @@ $(function () {
         resizeCanvas();
     });
 
-    $("canvas").mousemove(function (event) {
+    $canvas.mousemove(function (event) {
 
         event.preventDefault();
 
@@ -200,7 +204,10 @@ $(function () {
         }
         //prevent page fom scrolling
         return false;
-    }).css("cursor", "pointer");
+    });
+
+    $canvas.css("cursor", "pointer");
+    $canvas.css("background-color", "white");
 
     $("#startAndStop").click(function (event) {
 
@@ -224,6 +231,26 @@ $(function () {
     });
 
 
+    $("#cell-color").on("change", function (event) {
+
+        cellColor = $(this).val();
+
+        draw();
+    });
+
+    $("#background-color").on("change", function (event) {
+        $("canvas").css("background-color", $(this).val());
+        // cellColor = $(this).val();
+
+        // draw();
+    });
+
+    $("#grid-color").on("change", function (event) {
+
+        gridColor = $(this).val();
+
+        draw();
+    });
 
     $("#zoom-in").click(function (event) {
         zoomIn();
@@ -237,16 +264,10 @@ $(function () {
         step();
     });
 
-    $("#settings").click(function (event) {
-        $("#settings-modal").modal("show");
-    });
+    $("#show-grid").change(function () {
 
-    $("#show-grid-select").change(function () {
-        if ($(this).val() == 1) {
-            isShowGrid = true;
-        } else {
-            isShowGrid = false;
-        }
+        isShowGrid = $(this).is(":checked");
+
         draw();
     });
 
