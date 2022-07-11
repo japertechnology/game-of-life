@@ -236,6 +236,14 @@ $(function () {
         animationSpeed = $(this).val();
     });
 
+    $("#menubar-file-export").click(function(event){
+        event.preventDefault();
+
+        FileUtils.exportToCSV(game.cells, "positions.csv");
+
+        return false;
+    });
+
     $("#modal-examples a").click(function(event){
 
         const file = $(this).data("file");
