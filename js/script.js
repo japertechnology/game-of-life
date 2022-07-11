@@ -4,7 +4,7 @@ var mouseX = 0;
 var mouseY = 0;
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
-var animationSpeed = 90;
+var animationSpeed = 80;
 var intervalID = 0;
 var cellColor = "black";
 var gridColor = "black";
@@ -146,7 +146,7 @@ $(function () {
         step();
 
         if (isRunning) {
-            intervalID = setInterval(start, (100 - animationSpeed) * 10);
+            intervalID = setInterval(start, animationSpeed);
         }
     }
 
@@ -260,6 +260,10 @@ $(function () {
 
     $("#step").click(function (event) {
         step();
+    });
+
+    $("input[name=speed").change(function() {
+        animationSpeed = this.value;
     });
 
     $("#show-grid").change(function () {
