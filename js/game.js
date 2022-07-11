@@ -4,8 +4,8 @@ class Game {
 
         this.cells = new Map();
 
-        this.maxColumns = 10;
-        this.maxLines = 10;
+        this.maxColumns = 100;
+        this.maxLines = 100;
     }
 
     born(cell) {

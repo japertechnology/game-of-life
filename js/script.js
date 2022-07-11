@@ -15,7 +15,6 @@ var minWidth = 6;
 var width = 20;
 
 var isPressedButton = false;
-var isPressedKey = false;
 var isRunning = false;
 var isShowGrid = true;
 
@@ -118,8 +117,6 @@ $(function () {
 
     function resizeCanvas() {
 
-        console.debug("Resizing canvas");
-
         canvas.width = $("#panel").width();
         canvas.height = $(window).height() - $(".navbar").height()- $(".menubar").height() - $(".toolbar").height() - 60;
 
@@ -166,7 +163,8 @@ $(function () {
         mouseX = event.clientX - rect.left;
         mouseY = event.clientY - rect.top;
 
-        if (isPressedButton && isPressedKey) {
+        if (isPressedButton) {
+
             var pos = getClickPosition();
 
             if (pos == null) {
@@ -188,7 +186,7 @@ $(function () {
 
         var pos = getClickPosition();
 
-        if (pos == null || isPressedKey) {
+        if (pos == null) {
             return;
         }
 
