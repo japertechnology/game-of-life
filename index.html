@@ -53,6 +53,8 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link" href="#" data-bs-toggle="dropdown">Edit</a>
                         <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" id="menubar-edit-clear-all"><i class="bi bi-trash"></i><span>Clear All</span></a></li>
+                            <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal-settings" href="#"><i class="bi bi-gear"></i><span>Settings</span></a></li>
                         </ul>
                     </li>
@@ -76,7 +78,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link" href="#" data-bs-toggle="dropdown">Help</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" target="_blank" href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life"><i class="bi bi-blank"></i><span>About Game of Life</span></a></li>
+                            <li><a class="dropdown-item" target="_blank" href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life"><i class="bi bi-question-circle"></i><span>About Game of Life</span></a></li>
                         </ul>
                     </li>
                 </ul>
@@ -166,7 +168,7 @@
                         <h5 class="modal-title"><i class="bi bi-upload me-2"></i>Import .CSV</h5>
                     </div>
                     <div class="modal-body">
-                        <div class="mb-3">
+                        <div>
                             <label for="csv-file" class="form-label">File</label>
                             <input class="form-control" type="file" id="csv-file" required>
                             <small class="form-text">Use a comma to separate values.</small>

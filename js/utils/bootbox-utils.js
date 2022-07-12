@@ -58,13 +58,13 @@ class BootBoxUtils {
         });
     }
 
-    static confirm(message) {
+    static confirm(message, title="Please Confirm") {
 
         BootBoxUtils.setDefaults();
 
         return new Promise((resolve, reject) => {
             bootbox.confirm({
-                title: "Please Confirm",
+                title: title,
                 message: message,
                 buttons: {
                     confirm: {

@@ -240,6 +240,16 @@ $(function () {
         draw();
     });
 
+    $("#menubar-edit-clear-all").click(function (event) {
+
+        BootBoxUtils.confirm("Are you sure?", "Clear All").then(() => {
+
+            game = new Game();
+
+            draw();
+        });
+    });
+
     $("#menubar-file-export").click(function (event) {
 
         event.preventDefault();
