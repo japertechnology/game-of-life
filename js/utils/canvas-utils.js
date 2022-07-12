@@ -115,15 +115,6 @@ class CanvasUtils {
 
         }, false);
 
-        canvas.addEventListener("touchmove", function (event) {
-
-            onMove(event);
-
-            var touch = event.touches[0];
-
-
-        }, false);
-
         canvas.addEventListener("mouseup", function (evt) {
             dragStart = null;
         }, false);
@@ -147,22 +138,5 @@ class CanvasUtils {
 
         canvas.addEventListener("DOMMouseScroll", handleScroll, false);
         canvas.addEventListener("mousewheel", handleScroll, false);
-
-
-        document.body.addEventListener("touchstart", function (e) {
-            if (e.target == canvas) {
-                e.preventDefault();
-            }
-        }, false);
-        document.body.addEventListener("touchend", function (e) {
-            if (e.target == canvas) {
-                e.preventDefault();
-            }
-        }, false);
-        document.body.addEventListener("touchmove", function (e) {
-            if (e.target == canvas) {
-                e.preventDefault();
-            }
-        }, false);
     }
 }
