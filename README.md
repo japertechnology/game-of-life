@@ -1,4 +1,5 @@
-# Game of Life
+
+<img src="https://user-images.githubusercontent.com/114015/178503624-8ff773c7-2ab6-4719-a195-2b6f23890e30.png">
 
 Game of Life developed in HTML, CSS and Javascript
 
