@@ -3,9 +3,6 @@ class Game {
     constructor() {
 
         this.cells = new Map();
-
-        this.maxColumns = 100;
-        this.maxLines = 100;
     }
 
     born(cell) {

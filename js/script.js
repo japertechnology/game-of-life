@@ -111,14 +111,6 @@ $(function () {
         return false;
     };
 
-    function enableAllButtons() {
-        $(".toolbar .btn").removeClass("disabled").removeAttr("disabled");
-    }
-
-    function disableAllButtons() {
-        $(".toolbar .btn").addClass("disabled").attr("disabled", "disabled");
-    }
-
     function getClickPosition() {
 
         return {
@@ -176,7 +168,7 @@ $(function () {
 
         isPressedButton = false;
 
-        if(isRunning) return;
+        if (isRunning) return;
 
         var pos = getClickPosition();
 
@@ -201,7 +193,7 @@ $(function () {
             $("#startAndStop i").addClass("bi-stop-fill").removeClass("bi-play-fill");
             $("#startAndStop span").html("Stop");
 
-            // disableAllButtons();
+            $("#step").addClass("disabled");
 
             start();
         } else {
@@ -209,10 +201,9 @@ $(function () {
             $("#startAndStop i").addClass("bi-play-fill").removeClass("bi-stop-fill");
             $("#startAndStop span").html("Play");
 
-            // enableAllButtons();
+            $("#step").removeClass("disabled");
         }
     });
-
 
     $("#cell-color").on("change", function (event) {
 
@@ -249,8 +240,18 @@ $(function () {
         draw();
     });
 
-    $("#slider-speed").on("change", function () {
-        animationSpeed = $(this).val();
+    $("#menubar-file-export").click(function (event) {
+
+        event.preventDefault();
+
+        if (game.cells.size === 0) {
+            BootBoxUtils.alert("No alive cells");
+            return;
+        }
+
+        FileUtils.exportToCSV(game.cells, "positions.csv");
+
+        return false;
     });
 
     $("#form-import-csv").submit(event => {
@@ -263,20 +264,6 @@ $(function () {
 
             $("#modal-import-csv").modal("hide");
         });
-
-        return false;
-    });
-
-    $("#menubar-file-export").click(function (event) {
-
-        event.preventDefault();
-
-        if (game.cells.size === 0) {
-            BootBoxUtils.alert("No alive cells");
-            return;
-        }
-
-        FileUtils.exportToCSV(game.cells, "positions.csv");
 
         return false;
     });
