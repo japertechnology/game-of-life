@@ -64,31 +64,40 @@ class CanvasUtils {
         };
     }
 
-    static clearCanvas(ctx){
+    static clearCanvas(ctx) {
 
         // Clear the entire canvas
-         var p1 = ctx.transformedPoint(0, 0);
-         var p2 = ctx.transformedPoint(canvas.width, canvas.height);
-         ctx.clearRect(p1.x, p1.y, p2.x - p1.x, p2.y - p1.y);
+        var p1 = ctx.transformedPoint(0, 0);
+        var p2 = ctx.transformedPoint(canvas.width, canvas.height);
+        ctx.clearRect(p1.x, p1.y, p2.x - p1.x, p2.y - p1.y);
 
-         ctx.save();
-         ctx.setTransform(1, 0, 0, 1, 0, 0);
-         ctx.clearRect(0, 0, canvas.width, canvas.height);
-         ctx.restore();
+        ctx.save();
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.restore();
     }
 
-    static init(canvas, ctx, callback) {
-
-        function redraw() {
-
-            callback();
-        }
+    static init(canvas, ctx, redraw) {
 
         redraw();
 
         var lastX = canvas.width / 2, lastY = canvas.height / 2;
 
         var dragStart, dragged;
+
+        function onMove(evt) {
+
+            lastX = evt.offsetX || (evt.pageX - canvas.offsetLeft);
+            lastY = evt.offsetY || (evt.pageY - canvas.offsetTop);
+            dragged = true;
+
+            if (dragStart) {
+                var pt = ctx.transformedPoint(lastX, lastY);
+                ctx.translate(pt.x - dragStart.x, pt.y - dragStart.y);
+                redraw();
+            }
+        }
+
 
         canvas.addEventListener("mousedown", function (evt) {
 
@@ -97,18 +106,22 @@ class CanvasUtils {
             lastY = evt.offsetY || (evt.pageY - canvas.offsetTop);
             dragStart = ctx.transformedPoint(lastX, lastY);
             dragged = false;
+
         }, false);
 
-        canvas.addEventListener("mousemove", function (evt) {
+        canvas.addEventListener("mousemove", function (event) {
 
-            lastX = evt.offsetX || (evt.pageX - canvas.offsetLeft);
-            lastY = evt.offsetY || (evt.pageY - canvas.offsetTop);
-            dragged = true;
-            if (dragStart) {
-                var pt = ctx.transformedPoint(lastX, lastY);
-                ctx.translate(pt.x - dragStart.x, pt.y - dragStart.y);
-                redraw();
-            }
+            onMove(event);
+
+        }, false);
+
+        canvas.addEventListener("touchmove", function (event) {
+
+            onMove(event);
+
+            var touch = event.touches[0];
+
+
         }, false);
 
         canvas.addEventListener("mouseup", function (evt) {
@@ -134,5 +147,22 @@ class CanvasUtils {
 
         canvas.addEventListener("DOMMouseScroll", handleScroll, false);
         canvas.addEventListener("mousewheel", handleScroll, false);
+
+
+        document.body.addEventListener("touchstart", function (e) {
+            if (e.target == canvas) {
+                e.preventDefault();
+            }
+        }, false);
+        document.body.addEventListener("touchend", function (e) {
+            if (e.target == canvas) {
+                e.preventDefault();
+            }
+        }, false);
+        document.body.addEventListener("touchmove", function (e) {
+            if (e.target == canvas) {
+                e.preventDefault();
+            }
+        }, false);
     }
 }

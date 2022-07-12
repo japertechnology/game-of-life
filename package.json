@@ -1,9 +1,9 @@
 {
 	"name": "game-of-life",
-	"description": "Game of Life developed in HTML",
+	"description": "Game of Life developed in HTML, CSS and Javascript",
 	"author": "Thiago Ferreira",
-	"version": "0.0.1",
-	"homepage": "https://thiagodnf.github.io/game-of-life/",
+	"version": "1.0.0",
+	"homepage": "https://thiagodnf.github.io/game-of-life",
 	"license": "MIT",
 	"main": "server.js",
 	"repository": {

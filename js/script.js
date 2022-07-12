@@ -1,8 +1,5 @@
 var game;
 
-var transX;
-var transY;
-
 var mouseX = 0;
 var mouseY = 0;
 var canvas;
@@ -135,11 +132,6 @@ $(function () {
         canvas.width = $("#panel").width();
         canvas.height = $(window).height() - $(".navbar").height() - $(".menubar").height() - $(".toolbar").height() - 60;
 
-        transX = canvas.width * 0.5 * 0;
-        transY = canvas.height * 0.5 * 0;
-
-        ctx.translate(transX, transY);
-
         draw();
     }
 
@@ -164,8 +156,8 @@ $(function () {
 
         var rect = canvas.getBoundingClientRect();
 
-        mouseX = event.clientX - rect.left - transX;
-        mouseY = event.clientY - rect.top - transY;
+        mouseX = event.clientX - rect.left;
+        mouseY = event.clientY - rect.top;
 
         let m = ctx.transformedPoint(mouseX, mouseY);
 

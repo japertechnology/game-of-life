@@ -1,6 +1,6 @@
 # Game of Life
 
-Game of Life developed in HTML
+Game of Life developed in HTML, CSS and Javascript
 
 ## What Is It?
 
