@@ -270,7 +270,8 @@ $(function () {
 
         event.preventDefault();
 
-        // "ArrowRight", "ArrowLeft", "ArrowUp", or "ArrowDown"
+        if(isRunning) return;
+
         const key = $(this).data("direction");
 
         game.move(key);
@@ -280,7 +281,10 @@ $(function () {
 
     $(window).keydown(function (event) {
 
-        // "ArrowRight", "ArrowLeft", "ArrowUp", or "ArrowDown"
+        event.preventDefault();
+
+        if(isRunning) return;
+
         const key = event.key;
 
         game.move(key);

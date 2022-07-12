@@ -97,7 +97,14 @@ class Game {
         });
     }
 
+    /**
+     * Move all Cells
+     * @param {string} direction
+     */
     move(direction){
+
+        // Possible values
+        // "ArrowRight", "ArrowLeft", "ArrowUp", or "ArrowDown"
 
         if (direction === "ArrowRight") {
             this.moveRight();
@@ -115,26 +122,44 @@ class Game {
 
     moveLeft() {
 
-        for (const cell of this.cells.values()) {
+        let newCells = new Map();
+
+        this.cells.forEach(function(cell, key) {
             cell.j--;
-        };
+            newCells.set(cell.toString(), cell);
+        });
+
+        this.cells = newCells;
     }
     moveRight() {
 
-        for (const cell of this.cells.values()) {
+        let newCells = new Map();
+
+        this.cells.forEach(function(cell, key) {
             cell.j++;
-        };
+            newCells.set(cell.toString(), cell);
+        });
+
+        this.cells = newCells;
     }
     moveUp() {
 
-        for (const cell of this.cells.values()) {
+        let newCells = new Map();
+
+        this.cells.forEach(function(cell, key) {
             cell.i--;
-        };
+            newCells.set(cell.toString(), cell);
+        });
     }
     moveDown() {
 
-        for (const cell of this.cells.values()) {
+        let newCells = new Map();
+
+        this.cells.forEach(function(cell, key) {
             cell.i++;
-        };
+            newCells.set(cell.toString(), cell);
+        });
+
+        this.cells = newCells;
     }
 };
