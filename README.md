@@ -16,3 +16,50 @@ Game of Life developed in HTML, CSS and Javascript
 The Game of Life, also known simply as Life, is a cellular automaton devised by the British mathematician John Horton Conway in 1970.
 
 The "game" is a zero-player game, meaning that its evolution is determined by its initial state, requiring no further input. One interacts with the Game of Life by creating an initial configuration and observing how it evolves.
+
+For more information, please access [this link](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life).
+
+## How To Play
+
+Please access [https://thiagodnf.github.io/game-of-life](https://thiagodnf.github.io/game-of-life).
+
+## Screenshots
+
+![Jul-12-2022 11-00-12](https://user-images.githubusercontent.com/114015/178521589-289736cb-abfd-45a5-8643-ee1a2b7608d3.gif)
+
+
+## For Developers
+
+Install the dependencies
+
+```bash
+npm install
+```
+
+Run the development enviroment
+
+```bash
+npm run dev
+```
+
+## Questions or Suggestions
+
+Feel free to access the <a href="../../discussions">discussions tab</a> as you need
+
+## Contribute
+
+Contributions to the this project are very welcome! We can't do this alone! Feel free to fork this project, work on it and then make a pull request.
+
+## License
+
+Licensed under the [MIT license](LICENSE).
+
+## Donate
+
+I open-source almost everything I can, and I try to reply to everyone needing help using these projects. Obviously, this takes time. You can integrate and use these projects in your applications for free! You can even change the source code and redistribute (even resell it).
+
+However, if you get some profit from this or just want to encourage me to continue creating stuff, reach out to me if you want to do it.
+
+Thanks!
+
+❤️
