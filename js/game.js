@@ -96,4 +96,45 @@ class Game {
             }
         });
     }
+
+    move(direction){
+
+        if (direction === "ArrowRight") {
+            this.moveRight();
+        }
+        if (direction === "ArrowLeft") {
+            this.moveLeft();
+        }
+        if (direction === "ArrowUp") {
+            this.moveUp();
+        }
+        if (direction === "ArrowDown") {
+            this.moveDown();
+        }
+    }
+
+    moveLeft() {
+
+        for (const cell of this.cells.values()) {
+            cell.j--;
+        };
+    }
+    moveRight() {
+
+        for (const cell of this.cells.values()) {
+            cell.j++;
+        };
+    }
+    moveUp() {
+
+        for (const cell of this.cells.values()) {
+            cell.i--;
+        };
+    }
+    moveDown() {
+
+        for (const cell of this.cells.values()) {
+            cell.i++;
+        };
+    }
 };

@@ -264,6 +264,28 @@ $(function () {
         return false;
     });
 
+    $(".menubar-arrange-move").click(function (event) {
+
+        event.preventDefault();
+
+        // "ArrowRight", "ArrowLeft", "ArrowUp", or "ArrowDown"
+        const key = $(this).data("direction");
+
+        game.move(key);
+
+        draw();
+    });
+
+    $(window).keydown(function (event) {
+
+        // "ArrowRight", "ArrowLeft", "ArrowUp", or "ArrowDown"
+        const key = event.key;
+
+        game.move(key);
+
+        draw();
+    });
+
     $("#form-import-csv").submit(event => {
 
         let csvFile = $(this).find("#csv-file").prop("files")[0];
