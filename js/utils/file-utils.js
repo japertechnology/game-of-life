@@ -43,7 +43,7 @@ class FileUtils {
         fileReader.readAsText(file);
     }
 
-    static exportToCSV(cells, fileName) {
+    static exportToCSV(cells, fileName = "positions.csv") {
 
         let content = "";
 

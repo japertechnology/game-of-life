@@ -17,6 +17,8 @@ var isPressedButton = false;
 var isRunning = false;
 var isShowGrid = true;
 
+var filename = "positions.csv";
+
 const $modalSettings = $("#modal-examples");
 const $canvas = $("canvas");
 
@@ -259,7 +261,7 @@ $(function () {
             return;
         }
 
-        FileUtils.exportToCSV(game.cells, "positions.csv");
+        FileUtils.exportToCSV(game.cells, filename);
 
         return false;
     });
@@ -305,6 +307,8 @@ $(function () {
         event.preventDefault();
 
         const file = $(this).data("file");
+
+        filename = file.split(/(\\|\/)/g).pop();
 
         if (file) {
 
