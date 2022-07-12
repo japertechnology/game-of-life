@@ -1,14 +1,16 @@
-var game = new Game();
+var game;
+
+var transX;
+var transY;
 
 var mouseX = 0;
 var mouseY = 0;
-var canvas = document.getElementById("canvas");
-var ctx = canvas.getContext("2d");
+var canvas;
+var ctx;
 var animationSpeed = 80;
 var intervalID = 0;
 var cellColor = "black";
 var gridColor = "black";
-
 
 var maxWidth = 80;
 var minWidth = 6;
@@ -28,22 +30,31 @@ function drawCell(x, y, color) {
     ctx.fill();
 }
 
-function drawLine(x0, y0, x1, y1, lineWidth, color) {
+function drawLine(x0, y0, x1, y1) {
     ctx.beginPath();
-    ctx.strokeStyle = color;
-    ctx.lineWidth = lineWidth;
+    ctx.strokeStyle = gridColor;
+    ctx.lineWidth = 1;
     ctx.moveTo(x0, y0);
     ctx.lineTo(x1, y1);
     ctx.stroke();
 }
 
 function drawGrid() {
-    for (var i = 0; i < game.maxColumns; i++) {
-        drawLine(width + i * width, 0, width + i * width, game.maxLines * width, 1, gridColor);
+
+    let lessSize = -300;
+    let plusSize = 300;
+
+    let min = 60 + width * lessSize;
+    let max = width * (plusSize * 3);
+
+    // Horizontal Line
+    for (let i = min; i <= max; i += width) {
+        drawLine(min, i, max, i);
     }
 
-    for (var i = 0; i < game.maxLines; i++) {
-        drawLine(0, width + i * width, game.maxColumns * width, width + i * width, 1, gridColor);
+    // Vertical Line
+    for (let j = min; j <= max; j += width) {
+        drawLine(j, min, j, max);
     }
 }
 
@@ -56,8 +67,8 @@ function drawCells() {
 }
 
 function draw() {
-    //Clear the screen before draw
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    CanvasUtils.clearCanvas(ctx);
 
     if (isShowGrid) {
         drawGrid();
@@ -85,12 +96,23 @@ function loadPositions(positions) {
 
 $(function () {
 
+    game = new Game();
+
+    canvas = document.getElementById("canvas");
+    ctx = canvas.getContext("2d");
+
+    CanvasUtils.trackTransforms(ctx);
+
+    resizeCanvas();
+
+    CanvasUtils.init(canvas, ctx, function () {
+        draw();
+    });
 
     window.onerror = (errorMsg) => {
         BootBoxUtils.alert(errorMsg, "<i class=\"fas fa-exclamation-triangle me-2\"></i>Ooops...");
         return false;
     };
-
 
     function enableAllButtons() {
         $(".toolbar .btn").removeClass("disabled").removeAttr("disabled");
@@ -101,13 +123,6 @@ $(function () {
     }
 
     function getClickPosition() {
-        if (mouseX >= game.maxColumns * width) {
-            return;
-        }
-
-        if (mouseY >= game.maxLines * width) {
-            return;
-        }
 
         return {
             line: Math.floor(mouseY / width),
@@ -118,24 +133,13 @@ $(function () {
     function resizeCanvas() {
 
         canvas.width = $("#panel").width();
-        canvas.height = $(window).height() - $(".navbar").height()- $(".menubar").height() - $(".toolbar").height() - 60;
+        canvas.height = $(window).height() - $(".navbar").height() - $(".menubar").height() - $(".toolbar").height() - 60;
 
-        draw();
-    }
+        transX = canvas.width * 0.5 * 0;
+        transY = canvas.height * 0.5 * 0;
 
-    function zoomIn() {
-        //scroll up
-        if (width <= maxWidth) {
-            width += 2;
-        }
-        draw();
-    }
+        ctx.translate(transX, transY);
 
-    function zoomOut() {
-        //scroll down
-        if (width >= minWidth) {
-            width -= 2;
-        }
         draw();
     }
 
@@ -160,22 +164,18 @@ $(function () {
 
         var rect = canvas.getBoundingClientRect();
 
-        mouseX = event.clientX - rect.left;
-        mouseY = event.clientY - rect.top;
+        mouseX = event.clientX - rect.left - transX;
+        mouseY = event.clientY - rect.top - transY;
 
-        if (isPressedButton) {
+        let m = ctx.transformedPoint(mouseX, mouseY);
 
-            var pos = getClickPosition();
-
-            if (pos == null) {
-                return;
-            }
-
-            game.born(pos.line, pos.column);
-        }
+        mouseX = m.x;
+        mouseY = m.y;
 
     }).mousedown(function (event) {
+
         event.preventDefault();
+
         isPressedButton = true;
 
     }).mouseup(function (event) {
@@ -183,6 +183,8 @@ $(function () {
         event.preventDefault();
 
         isPressedButton = false;
+
+        if(isRunning) return;
 
         var pos = getClickPosition();
 
@@ -193,15 +195,6 @@ $(function () {
         game.toggleCell(pos.line, pos.column);
 
         draw();
-
-    }).bind("mousewheel", function (e) {
-        if (e.originalEvent.wheelDelta < 0) {
-            zoomOut();
-        } else {
-            zoomIn();
-        }
-        //prevent page fom scrolling
-        return false;
     });
 
     $canvas.css("cursor", "pointer");
@@ -238,9 +231,6 @@ $(function () {
 
     $("#background-color").on("change", function (event) {
         $("canvas").css("background-color", $(this).val());
-        // cellColor = $(this).val();
-
-        // draw();
     });
 
     $("#grid-color").on("change", function (event) {
@@ -250,19 +240,11 @@ $(function () {
         draw();
     });
 
-    $("#zoom-in").click(function (event) {
-        zoomIn();
-    });
-
-    $("#zoom-out").click(function (event) {
-        zoomOut();
-    });
-
     $("#step").click(function (event) {
         step();
     });
 
-    $("input[name=speed").change(function() {
+    $("input[name=speed").change(function () {
         animationSpeed = this.value;
     });
 
@@ -328,6 +310,4 @@ $(function () {
             $(".navbar-collapse").collapse("hide");
         }
     });
-
-    resizeCanvas();
 });
