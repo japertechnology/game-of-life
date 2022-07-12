@@ -6,8 +6,8 @@ var canvas;
 var ctx;
 var animationSpeed = 80;
 var intervalID = 0;
-var cellColor = "black";
-var gridColor = "black";
+var cellColor = "#171717";
+var gridColor = "#171717";
 
 var maxWidth = 80;
 var minWidth = 6;
@@ -30,6 +30,7 @@ function drawCell(x, y, color) {
 }
 
 function drawLine(x0, y0, x1, y1) {
+
     ctx.beginPath();
     ctx.strokeStyle = gridColor;
     ctx.lineWidth = 1;
