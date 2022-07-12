@@ -240,9 +240,11 @@ $(function () {
         animationSpeed = this.value;
     });
 
-    $("#show-grid").change(function () {
+    $("#menubar-view-grid").on("change", function (event) {
 
-        isShowGrid = $(this).is(":checked");
+        event.preventDefault();
+
+        isShowGrid = this.checked;
 
         draw();
     });
