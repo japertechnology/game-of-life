@@ -3,6 +3,14 @@
 
 Game of Life developed in HTML, CSS and Javascript
 
+
+[![Build](https://github.com/thiagodnf/game-of-life/actions/workflows/release.yml/badge.svg)](https://github.com/thiagodnf/game-of-life/actions/workflows/build.yml)
+[![GitHub Release](https://img.shields.io/github/release/thiagodnf/game-of-life.svg)](https://github.com/thiagodnf/game-of-life/releases/latest)
+[![GitHub contributors](https://img.shields.io/github/contributors/thiagodnf/game-of-life.svg)](https://github.com/thiagodnf/game-of-life/graphs/contributors)
+[![GitHub stars](https://img.shields.io/github/stars/thiagodnf/game-of-life.svg)](https://github.com/thiagodnf/game-of-life)
+[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
+[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
+
 ## What Is It?
 
 The Game of Life, also known simply as Life, is a cellular automaton devised by the British mathematician John Horton Conway in 1970.
