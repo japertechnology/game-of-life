@@ -25,8 +25,9 @@ Please access [https://thiagodnf.github.io/game-of-life](https://thiagodnf.githu
 
 ## Screenshots
 
-![Jul-12-2022 11-00-12](https://user-images.githubusercontent.com/114015/178521589-289736cb-abfd-45a5-8643-ee1a2b7608d3.gif)
-
+<kbd>
+  <img class="screenshot" src="https://user-images.githubusercontent.com/114015/178521589-289736cb-abfd-45a5-8643-ee1a2b7608d3.gif"/>
+</kbd>
 
 ## For Developers
 
