@@ -26,6 +26,14 @@ describe("FileUtils.parseContent handling blanks", () => {
       { i: 2, j: 2 }
     ]);
   });
+
+  test("ignores invalid lines", () => {
+    const csv = "1,1\ninvalid\n2,2";
+    expect(FileUtils.parseContent(csv)).toEqual([
+      { i: 1, j: 1 },
+      { i: 2, j: 2 }
+    ]);
+  });
 });
 
 describe("FileUtils.readCSV", () => {
