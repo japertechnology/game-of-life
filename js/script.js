@@ -83,7 +83,7 @@ function loadPositions(positions) {
 
     for (const pos of positions) {
 
-        game.toggleCell(pos.i, pos.j);
+        game.born(new Cell(pos.i, pos.j));
     }
 
     draw();
