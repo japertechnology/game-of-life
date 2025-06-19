@@ -285,7 +285,7 @@ $(function () {
         draw();
     });
 
-    $("#form-import-csv").submit(event => {
+    $("#form-import-csv").submit(function(event) {
 
         let csvFile = $(this).find("#csv-file").prop("files")[0];
 
