@@ -222,7 +222,7 @@ $(function () {
         step();
     });
 
-    $("input[name=speed").change(function () {
+    $("input[name=speed]").change(function () {
         animationSpeed = this.value;
     });
 
