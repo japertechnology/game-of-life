@@ -16,7 +16,7 @@ class FileUtils {
                 return;
             }
 
-            let array = rows.split(",").map(e => e.trim()).map(e => parseInt(e));
+            let array = rows.split(",").map(e => e.trim()).map(e => parseInt(e, 10));
 
             data.push({
                 i: array[0],
