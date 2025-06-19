@@ -150,6 +150,8 @@ class Game {
             cell.i--;
             newCells.set(cell.toString(), cell);
         });
+
+        this.cells = newCells;
     }
     moveDown() {
 
