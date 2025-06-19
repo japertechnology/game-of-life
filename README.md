@@ -4,7 +4,7 @@
 Game of Life developed in HTML, CSS and Javascript
 
 
-[![Build](https://github.com/thiagodnf/game-of-life/actions/workflows/release.yml/badge.svg)](https://github.com/thiagodnf/game-of-life/actions/workflows/build.yml)
+[![Build](https://github.com/thiagodnf/game-of-life/actions/workflows/nodejs.yml/badge.svg)](https://github.com/thiagodnf/game-of-life/actions/workflows/nodejs.yml)
 [![GitHub Release](https://img.shields.io/github/release/thiagodnf/game-of-life.svg)](https://github.com/thiagodnf/game-of-life/releases/latest)
 [![GitHub contributors](https://img.shields.io/github/contributors/thiagodnf/game-of-life.svg)](https://github.com/thiagodnf/game-of-life/graphs/contributors)
 [![GitHub stars](https://img.shields.io/github/stars/thiagodnf/game-of-life.svg)](https://github.com/thiagodnf/game-of-life)
@@ -25,9 +25,22 @@ Please access [https://thiagodnf.github.io/game-of-life](https://thiagodnf.githu
 
 ## Quick Start
 
-Clone the repository and launch a local development server to test changes quickly:
+Clone the repository and install dependencies:
 
 ```bash
+npm install
+```
+
+Run the unit tests:
+
+```bash
+npm test
+```
+
+Build the project and launch a local development server:
+
+```bash
+npm run build
 python3 -m http.server
 ```
 
@@ -43,9 +56,17 @@ Then open <http://localhost:8000> in your browser.
 
 Run the development environment
 
-Clone the repository and start a simple HTTP server to serve the files locally. You can use Python for that:
+Install the dependencies and run the tests:
 
 ```bash
+npm install
+npm test
+```
+
+Build the project and start a simple HTTP server to serve the files locally. You can use Python for that:
+
+```bash
+npm run build
 python3 -m http.server
 ```
 
