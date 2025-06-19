@@ -64,7 +64,7 @@ class CanvasUtils {
         };
     }
 
-    static clearCanvas(ctx) {
+    static clearCanvas(canvas, ctx) {
 
         // Clear the entire canvas
         var p1 = ctx.transformedPoint(0, 0);

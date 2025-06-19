@@ -64,7 +64,7 @@ function drawCells() {
 
 function draw() {
 
-    CanvasUtils.clearCanvas(ctx);
+    CanvasUtils.clearCanvas(canvas, ctx);
 
     if (isShowGrid) {
         drawGrid();
