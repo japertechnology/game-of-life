@@ -236,7 +236,11 @@ $(function () {
 
     $("#menubar-edit-clear-all").click(function (event) {
 
-        BootBoxUtils.confirm("Are you sure?", "Clear All").then(() => {
+        BootBoxUtils.confirm("Are you sure?", "Clear All").then((confirmed) => {
+
+            if (!confirmed) {
+                return;
+            }
 
             isRunning = false;
             clearInterval(intervalID);
