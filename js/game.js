@@ -53,7 +53,7 @@ class Game {
 
         let toBeAnalized = new Map();
 
-        for (const cell of game.cells.values()) {
+        for (const cell of this.cells.values()) {
 
             toBeAnalized.set(cell.toString(), cell);
 
