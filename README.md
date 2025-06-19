@@ -31,17 +31,15 @@ Please access [https://thiagodnf.github.io/game-of-life](https://thiagodnf.githu
 
 ## For Developers
 
-Install the dependencies
+Run the development environment
+
+Clone the repository and start a simple HTTP server to serve the files locally. You can use Python for that:
 
 ```bash
-npm install
+python3 -m http.server
 ```
 
-Run the development enviroment
-
-```bash
-npm run dev
-```
+Then open <http://localhost:8000> in your browser.
 
 ## Questions or Suggestions
 
