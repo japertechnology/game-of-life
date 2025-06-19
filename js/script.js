@@ -283,15 +283,17 @@ $(function () {
 
     $(window).keydown(function (event) {
 
-        event.preventDefault();
-
-        if(isRunning) return;
-
         const key = event.key;
 
-        game.move(key);
+        if(["ArrowRight", "ArrowLeft", "ArrowUp", "ArrowDown"].includes(key)) {
+            event.preventDefault();
 
-        draw();
+            if(isRunning) return;
+
+            game.move(key);
+
+            draw();
+        }
     });
 
     $("#form-import-csv").submit(function(event) {
