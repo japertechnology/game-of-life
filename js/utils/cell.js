@@ -27,3 +27,7 @@ class Cell {
         return `${this.i},${this.j}`;
     }
 }
+
+if (typeof module !== "undefined") {
+    module.exports = Cell;
+}
