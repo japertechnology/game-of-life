@@ -1,10 +1,8 @@
 
-const handleCallback = (value, resolve, reject) => {
-    if (value) {
-        resolve(value);
-    } else {
-        reject(value);
-    }
+const handleCallback = (value, resolve) => {
+    // Always resolve the promise with the returned value to avoid
+    // unhandled rejections when the user cancels the dialog.
+    resolve(value);
 };
 
 class BootBoxUtils {
@@ -26,7 +24,7 @@ class BootBoxUtils {
 
         BootBoxUtils.setDefaults();
 
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             bootbox.prompt({
                 title: title,
                 inputType: "number",
@@ -40,9 +38,9 @@ class BootBoxUtils {
                         className: "btn-light"
                     }
                 },
-                callback: (result) => handleCallback(result, resolve, reject)
+                callback: (result) => handleCallback(result, resolve)
             });
-
+            $(".bootbox-input").next(".form-text").remove();
             $(".bootbox-input").after(`<div class="form-text mt-2">Min: ${min} and Max: ${max}</div>`);
         });
     }
@@ -51,11 +49,11 @@ class BootBoxUtils {
 
         BootBoxUtils.setDefaults();
 
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             bootbox.alert({
                 message: message,
                 title: title,
-                callback: (result) => handleCallback(result, resolve, reject)
+                callback: (result) => handleCallback(result, resolve)
             });
         });
     }
@@ -64,7 +62,7 @@ class BootBoxUtils {
 
         BootBoxUtils.setDefaults();
 
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             bootbox.confirm({
                 title: title,
                 message: message,
@@ -78,7 +76,7 @@ class BootBoxUtils {
                         className: "btn-light"
                     }
                 },
-                callback: (result) => handleCallback(result, resolve, reject)
+                callback: (result) => handleCallback(result, resolve)
             });
         });
     }

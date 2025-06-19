@@ -51,20 +51,20 @@ class Game {
 
         console.debug("Stepping...");
 
-        let toBeAnalized = new Map();
+        let toBeAnalyzed = new Map();
 
         for (const cell of this.cells.values()) {
 
-            toBeAnalized.set(cell.toString(), cell);
+            toBeAnalyzed.set(cell.toString(), cell);
 
             for (const neighbor of cell.getNeighbors()) {
-                toBeAnalized.set(neighbor.toString(), neighbor);
+                toBeAnalyzed.set(neighbor.toString(), neighbor);
             }
         }
 
         var nextStates = new Array();
 
-        for (const cell of toBeAnalized.values()) {
+        for (const cell of toBeAnalyzed.values()) {
 
             var nAliveNeighbors = this.getAliveNeighbors(cell).length;
 

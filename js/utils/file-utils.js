@@ -4,7 +4,7 @@ class FileUtils {
 
         var data = [];
 
-        content.split("\n").forEach((rows, i) => {
+        content.trim().split(/\r?\n/).forEach((rows, i) => {
 
             if (hasHeader && i == 0) {
                 return;
