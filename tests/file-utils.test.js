@@ -17,3 +17,50 @@ describe("FileUtils.parseContent", () => {
     ]);
   });
 });
+
+describe("FileUtils.parseContent handling blanks", () => {
+  test("ignores blank lines", () => {
+    const csv = "1,1\n\n2,2";
+    expect(FileUtils.parseContent(csv)).toEqual([
+      { i: 1, j: 1 },
+      { i: 2, j: 2 }
+    ]);
+  });
+});
+
+describe("FileUtils.readCSV", () => {
+  test("calls callback with parsed data", done => {
+    class MockFileReader {
+      readAsText(file) {
+        this.onload({ target: { result: file } });
+      }
+    }
+    global.FileReader = MockFileReader;
+    const csv = "3,4";
+    FileUtils.readCSV(csv, false, data => {
+      expect(data).toEqual([{ i: 3, j: 4 }]);
+      done();
+    });
+  });
+});
+
+describe("FileUtils.exportToCSV", () => {
+  test("creates file and invokes saveAs", () => {
+    const saveAsMock = jest.fn();
+    global.saveAs = saveAsMock;
+    global.File = function(parts, name, opts) {
+      this.parts = parts;
+      this.name = name;
+      this.opts = opts;
+    };
+    const cells = new Map();
+    cells.set("1,1", { toString: () => "1,1" });
+    cells.set("2,2", { toString: () => "2,2" });
+    FileUtils.exportToCSV(cells, "out.csv");
+    expect(saveAsMock).toHaveBeenCalled();
+    const file = saveAsMock.mock.calls[0][0];
+    expect(file.parts[0]).toBe("1,1\n2,2\n");
+    expect(file.name).toBe("out.csv");
+    expect(file.opts.type).toBe("text/csv;charset=utf-8");
+  });
+});
