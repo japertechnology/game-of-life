@@ -68,19 +68,19 @@ class Game {
 
             var nAliveNeighbors = this.getAliveNeighbors(cell).length;
 
-            //1 - Qualquer célula viva com menos de dois vizinhos vivos morre de solidão.
+            //1 - Any live cell with fewer than two live neighbors dies of loneliness.
             if (this.isAlive(cell) && nAliveNeighbors < 2) {
                 nextStates.push({ cell, next: "dead" });
             }
-            //2 - Qualquer célula viva com mais de três vizinhos vivos morre de superpopulação.
+            //2 - Any live cell with more than three live neighbors dies of overpopulation.
             else if (this.isAlive(cell) && nAliveNeighbors > 3) {
                 nextStates.push({ cell, next: "dead" });
             }
-            //3 - Qualquer célula com exatamente três vizinhos vivos se torna uma célula viva.
+            //3 - Any cell with exactly three live neighbors becomes a live cell.
             else if (nAliveNeighbors == 3) {
                 nextStates.push({ cell, next: "alive" });
             }
-            //3 - Qualquer célula com dois vizinhos vivos continua no mesmo estado para a próxima geração.
+            //4 - Any cell with two live neighbors remains in the same state for the next generation.
             else if (nAliveNeighbors == 2) {
                 //Stay state
             }
