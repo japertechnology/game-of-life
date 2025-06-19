@@ -2,7 +2,7 @@
   "name": "game-of-life",
   "version": "1.0.0",
   "description": "<img width=\"500px\" src=\"https://user-images.githubusercontent.com/114015/178503624-8ff773c7-2ab6-4719-a195-2b6f23890e30.png\">",
-  "main": "index.js",
+  "main": "dist/bundle.js",
   "scripts": {
     "build": "rollup -c",
     "test": "jest",
@@ -10,7 +10,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "engines": {
     "node": ">=18"
   },
