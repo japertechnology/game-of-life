@@ -37,6 +37,12 @@ Run the unit tests:
 npm test
 ```
 
+Generate a coverage report:
+
+```bash
+npx jest --coverage
+```
+
 Build the project and launch a local development server:
 
 ```bash
