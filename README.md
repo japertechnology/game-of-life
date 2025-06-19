@@ -23,10 +23,20 @@ For more information, please access [this link](https://en.wikipedia.org/wiki/Co
 
 Please access [https://thiagodnf.github.io/game-of-life](https://thiagodnf.github.io/game-of-life).
 
+## Quick Start
+
+Clone the repository and launch a local development server to test changes quickly:
+
+```bash
+python3 -m http.server
+```
+
+Then open <http://localhost:8000> in your browser.
+
 ## Screenshots
 
 <kbd>
-  <img class="screenshot" src="https://user-images.githubusercontent.com/114015/178521589-289736cb-abfd-45a5-8643-ee1a2b7608d3.gif"/>
+  <img class="screenshot" src="https://user-images.githubusercontent.com/114015/178521589-289736cb-abfd-45a5-8643-ee1a2b7608d3.gif" alt="Game of Life animation"/>
 </kbd>
 
 ## For Developers
@@ -45,9 +55,9 @@ Then open <http://localhost:8000> in your browser.
 
 Feel free to access the <a href="../../discussions">discussions tab</a> as you need
 
-## Contribute
+## Contributing and Issues
 
-Contributions to the this project are very welcome! We can't do this alone! Feel free to fork this project, work on it and then make a pull request.
+Found a bug or have an idea for improvement? Please open an issue on GitHub so we can discuss it. Pull requests are very welcome—fork the repository, create a branch for your changes and submit a PR.
 
 ## License
 
