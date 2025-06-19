@@ -191,6 +191,7 @@ $(function () {
 
             start();
         } else {
+            clearInterval(intervalID);
 
             $("#startAndStop i").addClass("bi-play").removeClass("bi-stop-fill");
             $("#startAndStop span").html("Play");
