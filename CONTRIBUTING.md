@@ -25,15 +25,19 @@ An `.editorconfig` file is provided and enforces four space indentation and Unix
 
 Run ESLint before committing:
 ```bash
-npx eslint js
+npm run lint
 ```
 
 ## Testing your changes
 
-There are no automated tests at the moment. Before sending a pull request:
+Before sending a pull request, install dependencies and run the test suite:
+```bash
+npm install
+npm test
+```
 1. Start the development server as shown above.
 2. Open the application in the browser and verify that everything works as expected.
-3. Ensure `npx eslint js` reports no errors.
+3. Ensure `npm run lint` reports no errors.
 
 ## Pull request process
 
