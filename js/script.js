@@ -1,19 +1,19 @@
-var game;
+let game;
 
-var mouseX = 0;
-var mouseY = 0;
-var canvas;
-var ctx;
-var animationSpeed = 80;
-var intervalID = 0;
-var cellColor = "#171717";
-var gridColor = "#171717";
+let mouseX = 0;
+let mouseY = 0;
+let canvas;
+let ctx;
+let animationSpeed = 80;
+let intervalID = 0;
+let cellColor = "#171717";
+let gridColor = "#171717";
 
-var width = 20;
-var isRunning = false;
-var isShowGrid = true;
+const width = 20;
+let isRunning = false;
+let isShowGrid = true;
 
-var filename = "positions.csv";
+let filename = "positions.csv";
 
 const $modalSettings = $("#modal-examples");
 const $canvas = $("canvas");
@@ -145,7 +145,7 @@ $(function () {
 
         event.preventDefault();
 
-        var rect = canvas.getBoundingClientRect();
+        const rect = canvas.getBoundingClientRect();
 
         mouseX = event.clientX - rect.left;
         mouseY = event.clientY - rect.top;
@@ -165,7 +165,7 @@ $(function () {
 
         if (isRunning) return;
 
-        var pos = getClickPosition();
+        const pos = getClickPosition();
 
         if (pos == null) {
             return;
