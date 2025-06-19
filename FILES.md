@@ -1,4 +1,4 @@
-# Overview of root directory files
+# Overview of root directory
 
 This document describes the purpose of each file and directory located at the root of the repository.
 
