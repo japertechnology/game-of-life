@@ -15,7 +15,6 @@ let isShowGrid = true;
 
 let filename = "positions.csv";
 
-const $modalSettings = $("#modal-examples");
 const $canvas = $("canvas");
 
 function drawCell(x, y, color) {
@@ -185,7 +184,7 @@ $(function () {
 
         if (isRunning) {
 
-            $("#startAndStop i").addClass("bi-stop-fill").removeClass("bi-play-fill");
+            $("#startAndStop i").addClass("bi-stop-fill").removeClass("bi-play");
             $("#startAndStop span").html("Stop");
 
             $("#step").addClass("disabled");
@@ -193,7 +192,7 @@ $(function () {
             start();
         } else {
 
-            $("#startAndStop i").addClass("bi-play-fill").removeClass("bi-stop-fill");
+            $("#startAndStop i").addClass("bi-play").removeClass("bi-stop-fill");
             $("#startAndStop span").html("Play");
 
             $("#step").removeClass("disabled");
@@ -238,6 +237,12 @@ $(function () {
     $("#menubar-edit-clear-all").click(function (event) {
 
         BootBoxUtils.confirm("Are you sure?", "Clear All").then(() => {
+
+            isRunning = false;
+            clearInterval(intervalID);
+            $("#startAndStop i").addClass("bi-play").removeClass("bi-stop-fill");
+            $("#startAndStop span").html("Play");
+            $("#step").removeClass("disabled");
 
             game = new Game();
 
