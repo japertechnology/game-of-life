@@ -56,3 +56,7 @@ class FileUtils {
         saveAs(file);
     }
 }
+
+if (typeof module !== "undefined") {
+    module.exports = FileUtils;
+}

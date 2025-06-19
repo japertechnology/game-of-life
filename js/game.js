@@ -165,3 +165,7 @@ class Game {
         this.cells = newCells;
     }
 };
+
+if (typeof module !== "undefined") {
+    module.exports = Game;
+}
