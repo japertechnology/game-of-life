@@ -9,11 +9,7 @@ var intervalID = 0;
 var cellColor = "#171717";
 var gridColor = "#171717";
 
-var maxWidth = 80;
-var minWidth = 6;
 var width = 20;
-
-var isPressedButton = false;
 var isRunning = false;
 var isShowGrid = true;
 
@@ -163,13 +159,9 @@ $(function () {
 
         event.preventDefault();
 
-        isPressedButton = true;
-
     }).mouseup(function (event) {
 
         event.preventDefault();
-
-        isPressedButton = false;
 
         if (isRunning) return;
 
