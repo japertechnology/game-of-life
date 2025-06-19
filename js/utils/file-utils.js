@@ -16,11 +16,22 @@ class FileUtils {
                 return;
             }
 
-            let array = rows.split(",").map(e => e.trim()).map(e => parseInt(e, 10));
+            const parts = rows.split(",").map(e => e.trim());
+
+            if (parts.length < 2) {
+                return;
+            }
+
+            const iVal = parseInt(parts[0], 10);
+            const jVal = parseInt(parts[1], 10);
+
+            if (Number.isNaN(iVal) || Number.isNaN(jVal)) {
+                return;
+            }
 
             data.push({
-                i: array[0],
-                j: array[1],
+                i: iVal,
+                j: jVal,
             });
         });
 

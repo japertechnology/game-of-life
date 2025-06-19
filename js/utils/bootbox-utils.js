@@ -81,3 +81,7 @@ class BootBoxUtils {
         });
     }
 }
+
+if (typeof module !== "undefined") {
+    module.exports = BootBoxUtils;
+}

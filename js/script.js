@@ -236,8 +236,9 @@ $(function () {
 
     $("#menubar-edit-clear-all").click(function (event) {
 
-        BootBoxUtils.confirm("Are you sure?", "Clear All").then((result) => {
-            if (!result) {
+        BootBoxUtils.confirm("Are you sure?", "Clear All").then((confirmed) => {
+
+            if (!confirmed) {
                 return;
             }
 
